@@ -1,4 +1,21 @@
+var connect = require('connect');
+
 exports = module.exports = require('./lib/photon');
 
-exports.routing = require('./lib/extensions/routing');
-exports.common = require('./lib/middlewares/common');
+// extensions
+['routing'
+].forEach(function(extension) {
+    exports[extension] = require('./lib/extensions/' + extension);
+});
+
+// middlewares
+['common', 'decodeURI', 'mime', 'cookie', 'auth'
+].forEach(function(middleware) {
+    exports[middleware] = require('./lib/middlewares/' + middleware);
+});
+
+// from connect
+['cookieParser', 'urlencoded'
+].forEach(function(middleware) {
+    exports[middleware] = connect[middleware];
+});
