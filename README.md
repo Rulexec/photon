@@ -23,6 +23,9 @@ Provides possibility route requests by method, request url match, or by RegExp.
 
 **Warning:** here is two types of routes. Static (with pattern as string) and dynamic (with pattern as RegExp). And static routes have highter priority.
 
+__Requires__
+* photon.path
+
 __Adds__
 * app.get, app.post
 * app.routeStatic
@@ -109,6 +112,11 @@ __Adds__
 __Extras__
 * photon.auth.required(fn(req, res, user), otherwise(error, req, res)) - if Boolean(user) !== false, calls fn and passes user as third argument (if this is dynamic route, groups will follow), otherwise calls otherwise. If here backend error, calls otherwise too.
 * photon.auth.fail(otherwise) - returns photon.auth.required equivalent with otherwise as default otherwise.
+
+### photon.path()
+
+__Adds__
+* req.path - req.url sliced to first '?' char
 
 ----------------------------------------
 
