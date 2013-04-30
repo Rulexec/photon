@@ -110,8 +110,10 @@ __Adds__
 * res.user.unset() - chainable. But it ignores possible error from backend.
 
 __Extras__
-* photon.auth.required(fn(req, res, user), otherwise(error, req, res)) - if Boolean(user) !== false, calls fn and passes user as third argument (if this is dynamic route, groups will follow), otherwise calls otherwise. If here backend error, calls otherwise too.
+* photon.auth.required(fn(req, res, user), otherwise(req, res, error)) - if Boolean(user) !== false, calls fn and passes user as third argument (if this is dynamic route, groups will follow), otherwise calls otherwise. If here backend error, calls otherwise too.
 * photon.auth.fail(otherwise) - returns photon.auth.required equivalent with otherwise as default otherwise.
+* photon.auth.provide(fn(req, res, user), error(req, res, error)) - if no error, provides user (null, if not set).
+* photon.auth.provideFail(error(req, res, error)) - returns photon.auth.provide equivalent with error as default error callback.
 
 ### photon.path()
 
