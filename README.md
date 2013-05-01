@@ -24,9 +24,11 @@ Provides possibility route requests by method, request url match, or by RegExp.
 **Warning:** here is two types of routes. Static (with pattern as string) and dynamic (with pattern as RegExp). And static routes have highter priority.
 
 __Requires__
+
 * photon.path
 
 __Adds__
+
 * app.get, app.post
 * app.routeStatic
 
@@ -58,6 +60,7 @@ app.routeStatic({
 ### photon.common(options)
 
 __Adds__
+
 * res.status(statusCode) - chainable version of res.statusCode = statusCode
 * res.location(url) - shortcut for res.setHeader('Location', url)
 * res.redirect([statusCode,] url) - shortcut for res.status(statusCode).location(url). Default statusCode is 303. 
@@ -79,6 +82,7 @@ Calls decodeURIComponent to req.url for replacing '%D1%8D%D1%82%D0%BE' to unicod
 If type or charset passed, sets mime type. Default type - text/html.
 
 __Adds__
+
 * res.mime([type,] charset) - sets mime type and charset. If type is omitted, sets text/html.
 
 ----------------------------------------
@@ -86,6 +90,7 @@ __Adds__
 ### photon.cookie()
 
 __Adds__
+
 * res.cookie(name, value, options) - sets cookie. Supported options is: maxAge (in seconds), expires (Date), path, httpOnly (Boolean). Expires has highter priority, than maxAge.
 
 ----------------------------------------
@@ -95,21 +100,25 @@ __Adds__
 Provides generic auth mechanism. In current time allows only set and get user. Here is no backend for storing sessions. This middleware just calls your backend methods, when you need to get user object, or set it.
 
 __Requires__
+
 * photon.cookieParser
 * photon.cookie
 
 __Options__
+
 * sessionApi.get(sessionId, callback(error, user))
 * sessionApi.create(user, callback(error, sessionId))
 * sessionApi.remove(sessionId)
 * cookie - cookie name, used for store session id. Defaults to 'session_id'
 
 __Adds__
+
 * req.user.get(callback(error, user))
 * res.user.set(user, callback(error))
 * res.user.unset() - chainable. But it ignores possible error from backend.
 
 __Extras__
+
 * photon.auth.required(fn(req, res, user), otherwise(req, res, error)) - if Boolean(user) !== false, calls fn and passes user as third argument (if this is dynamic route, groups will follow), otherwise calls otherwise. If here backend error, calls otherwise too.
 * photon.auth.fail(otherwise) - returns photon.auth.required equivalent with otherwise as default otherwise.
 * photon.auth.provide(fn(req, res, user), error(req, res, error)) - if no error, provides user (null, if not set).
@@ -118,6 +127,7 @@ __Extras__
 ### photon.path()
 
 __Adds__
+
 * req.path - req.url sliced to first '?' char
 
 ----------------------------------------
