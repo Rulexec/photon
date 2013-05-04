@@ -19,7 +19,7 @@ function photon() {
 ## Extensions
 ### photon.routing()
 
-Provides possibility route requests by method, request url match, or by RegExp.
+Provides possibility to route requests by method, request url match, or by RegExp.
 
 **Warning:** here is two types of routes. Static (with pattern as string) and dynamic (with pattern as RegExp). And static routes have highter priority.
 
@@ -63,11 +63,12 @@ __Adds__
 
 * res.status(statusCode) - chainable version of res.statusCode = statusCode
 * res.location(url) - shortcut for res.setHeader('Location', url)
-* res.redirect([statusCode,] url) - shortcut for res.status(statusCode).location(url). Default statusCode is 303. 
+* res.redirect([statusCode,] url) - shortcut for res.status(statusCode).location(url). Default statusCode is 303.
+* res.onEnd(callback) - adds callback to stack, and when res.end called — calls every callback from stack. Callback must call this.apply(this, arguments) to continue.
 
 __Options__
 
-* status, location, redirect: Boolean - enable/disable features. Default true for all.
+* status, location, redirect, onEnd: Boolean - enable/disable features. Default true for all.
 
 ----------------------------------------
 
@@ -81,6 +82,10 @@ Calls decodeURIComponent to req.url for replacing '%D1%8D%D1%82%D0%BE' to unicod
 
 If type or charset passed, sets mime type. Default type - text/html.
 
+__Requires__
+
+* photon.common({onEnd: true})
+
 __Adds__
 
 * res.mime([type,] charset) - sets mime type and charset. If type is omitted, sets text/html.
@@ -89,15 +94,19 @@ __Adds__
 
 ### photon.cookie()
 
+__Requires__
+
+* photon.common({onEnd: true});
+
 __Adds__
 
 * res.cookie(name, value, options) - sets cookie. Supported options is: maxAge (in seconds), expires (Date), path, httpOnly (Boolean). Expires has highter priority, than maxAge.
 
 ----------------------------------------
 
-### photon.auth(options)
+### photon.session(options)
 
-Provides generic auth mechanism. In current time allows only set and get user. Here is no backend for storing sessions. This middleware just calls your backend methods, when you need to get user object, or set it.
+Provides generic session mechanism.
 
 __Requires__
 
@@ -106,16 +115,36 @@ __Requires__
 
 __Options__
 
-* sessionApi.get(sessionId, callback(error, user))
-* sessionApi.create(user, callback(error, sessionId))
-* sessionApi.remove(sessionId)
+* sessionApi.read(sessionId, [key], callback(error, data))
+* sessionApi.update(sessionId, [key], data, callback(error, sessionId))
+* sessionApi.remove(sessionId, [key], callback(error))
+
+__Adds__
+
+* req.session.read([key], callback(error, data))
+* res.session.set([key], data, callback(error))
+* res.session.remove([key], callback(error))
+
+----------------------------------------
+
+### photon.auth(options)
+
+Provides auth mechanism based on session. Will rewritten to generic version soon.
+
+__Requires__
+
+* photon.session
+
+__Options__
+
 * cookie - cookie name, used for store session id. Defaults to 'session_id'
 
 __Adds__
 
+* req.session:user — creates user field in session
 * req.user.get(callback(error, user))
 * res.user.set(user, callback(error))
-* res.user.unset() - chainable. But it ignores possible error from backend.
+* res.user.unset(callback)
 
 __Extras__
 

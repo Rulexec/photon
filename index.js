@@ -9,7 +9,7 @@ exports = module.exports = require('./lib/photon');
 });
 
 // middlewares
-['common', 'decodeURI', 'mime', 'cookie', 'auth', 'path'
+['common', 'decodeURI', 'mime', 'cookie', 'auth', 'session', 'path'
 ].forEach(function(middleware) {
     exports[middleware] = require('./lib/middlewares/' + middleware);
 });
