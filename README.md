@@ -161,4 +161,10 @@ __Adds__
 
 ----------------------------------------
 
+### photon.hostRedirect(host, [protocol])
+
+If req.headers.host !== host, redirects with 302 to protocol://host.
+
+----------------------------------------
+
 If you know English and can fix my errors, please, write me to [rulix.exec@gmail.com](mailto:rulix.exec@gmail.com). Thanks.
