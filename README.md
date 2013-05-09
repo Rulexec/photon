@@ -167,4 +167,14 @@ If req.headers.host !== host, redirects with 302 to protocol://host.
 
 ----------------------------------------
 
+### photon.cache()
+
+__Adds__
+* req.cached({etag: 'string', lastModified: Date}) — one of etag or lastModified options must be defined. Checks for If-Modified-Since and If-None-Match headers. If If-Modified-Since >= lastModified, or If-None-Match === etag, returns true, else false;
+* res.cache({mode: 'public', maxAge: int, etag: 'string', lastModified: Date}) — sets Cache-Control: mode[, max-age=maxAge], ETag: etag, Last-Modified: lastModified. Also sets Date: new Date().toUTCString().
+* res.notModified() — chainable res.statusCode = 304.
+* res.endIfCached(options) — options same as in req.cached. Shortcut for return req.cached(options) ? res.notModified().end(), true : false.
+
+----------------------------------------
+
 If you know English and can fix my errors, please, write me to [rulix.exec@gmail.com](mailto:rulix.exec@gmail.com). Thanks.
