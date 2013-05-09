@@ -78,9 +78,9 @@ Calls decodeURIComponent to req.url for replacing '%D1%8D%D1%82%D0%BE' to unicod
 
 ----------------------------------------
 
-### photon.mime([[type,] charset])
+### photon.mime([type, charset])
 
-If type or charset passed, sets mime type. Default type - text/html.
+Default type — text/html, charset — utf-8.
 
 __Requires__
 
@@ -88,7 +88,7 @@ __Requires__
 
 __Adds__
 
-* res.mime([type,] charset) - sets mime type and charset. If type is omitted, sets text/html.
+* res.mime(type, charset) - sets mime type and charset. If type or charset === null, takes value from passed options to photon.mime.
 
 ----------------------------------------
 
