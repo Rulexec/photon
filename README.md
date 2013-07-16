@@ -170,6 +170,7 @@ If req.headers.host !== host, redirects with 302 to protocol://host.
 ### photon.cache()
 
 __Adds__
+
 * req.cached({etag: 'string', lastModified: Date}) — one of etag or lastModified options must be defined. Checks for If-Modified-Since and If-None-Match headers. If If-Modified-Since >= lastModified, or If-None-Match === etag, returns true, else false. **Warning**: here is 1s error possible.
 * res.cache({mode: 'public', maxAge: int, etag: 'string', lastModified: Date}) — sets Cache-Control: mode[, max-age=maxAge], ETag: etag, Last-Modified: lastModified. Also sets Date: new Date().toUTCString().
 * res.notModified() — chainable res.statusCode = 304.

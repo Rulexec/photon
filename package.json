@@ -1,7 +1,7 @@
 {
   "name": "photon",
   "description": "My generic middlewares for connect.js",
-  "version": "0.8.1",
+  "version": "0.8.2",
   "author": {
     "name": "Alexander Ruliov",
     "email": "rulix.exec@gmail.com"
